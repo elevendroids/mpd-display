@@ -1,3 +1,10 @@
 language: cpp
-script: cmake
+
+compiler:
+  - gcc
+
+script:
+  - mkdir build
+  - cd build
+  - cmake .. && make
 
