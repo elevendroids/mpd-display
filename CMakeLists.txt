@@ -1,16 +1,16 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.0)
 
 project(mpd-lcd)
 
-add_compile_options(-std=c++11)
+add_compile_options(-O2 -std=c++11)
 
 add_subdirectory( MpdClientCpp )
+add_subdirectory( Unidecode )
 
-find_library(LIBMPDCLIENT mpdclient)
-
-add_executable( mpd-lcd
+add_executable( ${PROJECT_NAME}
   source/main.cpp
 )
 
-target_link_libraries(mpd-lcd MpdClientCpp ${LIBMPDCLIENT})
+target_include_directories(${PROJECT_NAME} PRIVATE include)
+target_link_libraries(${PROJECT_NAME} MpdClientCpp Unidecode)
 

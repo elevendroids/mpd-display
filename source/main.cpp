@@ -1,10 +1,10 @@
-#include <mpd/client.h>
-
 #include <cstdlib>
 #include <cstdint>
 #include <iostream>
+#include <string>
 
 #include "MpdClient.h"
+#include "Unidecode.h"
 
 int main()
 {
@@ -35,11 +35,16 @@ int main()
     Mpd::SongList queue;
     if (client.getQueue(queue))
     {
+      Unidecode unidecode;
       std::cout << "Queue:" << std::endl;
 
       for (auto* song: queue)
       {
-        std::cout << song->getArtist() << " - " << song->getTitle() << std::endl;
+        std::string title = unidecode.transliterate(song->getTitle());
+        std::string artist = unidecode.transliterate(song->getArtist());
+
+        std::cout << artist << " - " << title << std::endl;
+
         delete song;
       }
       queue.clear();

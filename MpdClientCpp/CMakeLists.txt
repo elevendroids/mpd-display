@@ -1,12 +1,15 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.0)
 
 include_directories(include)
 
-add_library(MpdClientCpp
+add_library(MpdClientCpp STATIC
   source/MpdClient.cpp
   source/MpdSong.cpp
   source/MpdStatus.cpp
 )
 
-target_include_directories(MpdClientCpp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+find_library(LIBMPDCLIENT mpdclient)
+
+target_include_directories(MpdClientCpp PUBLIC include)
+target_link_libraries(MpdClientCpp ${LIBMPDCLIENT})
 
